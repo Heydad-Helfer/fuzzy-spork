@@ -1,13 +1,14 @@
-from CardFileExtractor import CardFileExtractor
+from .CardFileExtractor import CardFileExtractor
 
 class CALFileExtractor(CardFileExtractor):
     def __init__(self, filename, cardID):
         CardFileExtractor.__init__(self, filename, "CAL", cardID)
         self.lines = [line.split('\t') for line in self.lines]
         self.lines = self.tuplify()
+        self.calc_sum()
 
-    def Sum(self):
-        return sum(j for _, j in self.lines).__round__(2)
+    def calc_sum(self):
+        self.sum = sum(j for _, j in self.lines).__round__(2)
 
     #return a list of tuples of (date, deal-sum)
     def tuplify(self):
